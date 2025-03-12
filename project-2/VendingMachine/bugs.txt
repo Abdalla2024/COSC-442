@@ -1,0 +1,11 @@
+public VendingMachine() {
+		itemArray = new VendingMachineItem[NUM_SLOTS];
+		for (int i = 0; i <= NUM_SLOTS; i++) { 
+				itemArray[i] = null;
+		}
+		this.balance = INITIAL_BALANCE;
+	}
+	
+There is a bug in the constructor for VendingMachine.java. NUM_SLOTS = 4 for A, B, C, and D.
+The loop starts at 0 and goes to 4 setting each item to null. However that is 5 items, not
+4 like it is supposed to be. So I removed the "=" in the code.
