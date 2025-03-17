@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>VendingMachineTest.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">AllTests (1) (Mar 13, 2025 2:50:57 PM)</a> &gt; <a href="../../index.html" class="el_group">VendingMachine2</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">edu.towson.cis.cosc442.project3.vendingmachine</a> &gt; <span class="el_source">VendingMachineTest.java</span></div><h1>VendingMachineTest.java</h1><pre class="source lang-java linenums">/**
+ * 
+ */
+package edu.towson.cis.cosc442.project3.vendingmachine;
+
+import static org.junit.Assert.*;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+/**
+ * 
+ */
+<span class="fc" id="L15">public class VendingMachineTest {</span>
+
+	VendingMachine myVendingMachine;
+	VendingMachineItem candy;
+	VendingMachineItem soda;
+	
+	/**
+	 * @throws java.lang.Exception
+	 */
+	@Before
+	public void setUp() throws Exception {
+<span class="fc" id="L26">		myVendingMachine = new VendingMachine();</span>
+<span class="fc" id="L27">		candy = new VendingMachineItem(&quot;candy&quot;, 2.99);</span>
+<span class="fc" id="L28">		soda = new VendingMachineItem(&quot;soda&quot;, 1.99);</span>
+<span class="fc" id="L29">	}</span>
+
+	/**
+	 * @throws java.lang.Exception
+	 */
+	@After
+	public void tearDown() throws Exception {
+<span class="fc" id="L36">	}</span>
+
+	/**
+	 * Test method for {@link edu.towson.cis.cosc442.project2.vendingmachine.VendingMachine#addItem(edu.towson.cis.cosc442.project2.vendingmachine.VendingMachineItem, java.lang.String)}.
+	 * Testing adding valid item to vending machine
+	 */
+	@Test
+	public void testAddItem() {
+<span class="fc" id="L44">		myVendingMachine.addItem(candy, &quot;A&quot;);</span>
+		
+<span class="fc" id="L46">		assertEquals(candy, myVendingMachine.getItem(&quot;A&quot;));</span>
+<span class="fc" id="L47">	}</span>
+	
+	/**
+	 * Test method for {@link edu.towson.cis.cosc442.project2.vendingmachine.VendingMachine#addItem(edu.towson.cis.cosc442.project2.vendingmachine.VendingMachineItem, java.lang.String)}.
+	 * Testing adding item in already occupied slot
+	 */
+	@Test (expected = VendingMachineException.class)
+	public void testAddItemSameSlot() {
+<span class="fc" id="L55">		myVendingMachine.addItem(candy, &quot;A&quot;);</span>
+<span class="nc" id="L56">		myVendingMachine.addItem(soda, &quot;A&quot;);</span>
+<span class="nc" id="L57">	}</span>
+	
+	/**
+	 * Test method for {@link edu.towson.cis.cosc442.project2.vendingmachine.VendingMachine#addItem(edu.towson.cis.cosc442.project2.vendingmachine.VendingMachineItem, java.lang.String)}.
+	 * Testing adding item in invalid slot
+	 */
+	@Test (expected = VendingMachineException.class)
+	public void testAddItemInvalidSlot() {
+<span class="nc" id="L65">		myVendingMachine.addItem(candy, &quot;E&quot;);</span>
+<span class="nc" id="L66">	}</span>
+
+	/**
+	 * Test method for {@link edu.towson.cis.cosc442.project2.vendingmachine.VendingMachine#removeItem(java.lang.String)}.
+	 * Testing removing item
+	 */
+	@Test
+	public void testRemoveItem() {
+<span class="fc" id="L74">		myVendingMachine.addItem(candy, &quot;C&quot;);</span>
+<span class="fc" id="L75">		myVendingMachine.removeItem(&quot;C&quot;);</span>
+<span class="fc" id="L76">		assertNull(myVendingMachine.getItem(&quot;C&quot;));</span>
+<span class="fc" id="L77">	}</span>
+
+	/**
+	 * Test method for {@link edu.towson.cis.cosc442.project2.vendingmachine.VendingMachine#removeItem(java.lang.String)}.
+	 * Testing removing from a slot that is already empty
+	 */
+	@Test (expected = VendingMachineException.class)
+	public void removeEmptySlot() {
+<span class="nc" id="L85">		myVendingMachine.removeItem(&quot;D&quot;);</span>
+<span class="nc" id="L86">	}</span>
+	
+	/**
+	 * Test method for {@link edu.towson.cis.cosc442.project2.vendingmachine.VendingMachine#insertMoney(double)}.
+	 * Testing inserting valid amount into vending machine
+	 */
+	@Test
+	public void testInsertMoney() {
+<span class="fc" id="L94">		myVendingMachine.insertMoney(5);</span>
+		
+<span class="fc" id="L96">		assertEquals(5, myVendingMachine.getBalance(), 0.001);</span>
+<span class="fc" id="L97">	}</span>
+	
+	/**
+	 * Test method for {@link edu.towson.cis.cosc442.project2.vendingmachine.VendingMachine#insertMoney(double)}.
+	 * Testing inserting an invalid amount of money
+	 */
+	@Test (expected = VendingMachineException.class)
+	public void testInsertInvalidMoney() {
+<span class="nc" id="L105">		myVendingMachine.insertMoney(0.5);</span>
+<span class="nc" id="L106">	}</span>
+
+	/**
+	 * Test method for {@link edu.towson.cis.cosc442.project2.vendingmachine.VendingMachine#getBalance()}.
+	 * Testing getBalance() method to return correct balance
+	 */
+	@Test
+	public void testGetBalance() {
+<span class="fc" id="L114">		assertEquals(0, myVendingMachine.getBalance(), 0.001);</span>
+<span class="fc" id="L115">	}</span>
+
+	/**
+	 * Test method for {@link edu.towson.cis.cosc442.project2.vendingmachine.VendingMachine#makePurchase(java.lang.String)}.
+	 * Testing if you can make a valid purchase
+	 */
+	@Test
+	public void testMakePurchase() {
+<span class="fc" id="L123">		myVendingMachine.addItem(candy, &quot;A&quot;);</span>
+<span class="fc" id="L124">		myVendingMachine.insertMoney(3);</span>
+<span class="fc" id="L125">		assertTrue(myVendingMachine.makePurchase(&quot;A&quot;));</span>
+<span class="fc" id="L126">	}</span>
+
+	/**
+	 * Test method for {@link edu.towson.cis.cosc442.project2.vendingmachine.VendingMachine#makePurchase(java.lang.String)}.
+	 * Testing if you can make a purchase with insufficient funds
+	 */
+	@Test
+	public void testInsufficientMoneyPurchase() {
+<span class="fc" id="L134">		myVendingMachine.addItem(candy, &quot;A&quot;);</span>
+<span class="fc" id="L135">		myVendingMachine.insertMoney(1);</span>
+<span class="fc" id="L136">		assertFalse(myVendingMachine.makePurchase(&quot;A&quot;));</span>
+<span class="fc" id="L137">	}</span>
+	
+	/**
+	 * Test method for {@link edu.towson.cis.cosc442.project2.vendingmachine.VendingMachine#makePurchase(java.lang.String)}.
+	 * Making sure you cannot purchase from an empty slot
+	 */
+	@Test
+	public void testPurchaseEmptySlot() {
+<span class="fc" id="L145">		assertFalse(myVendingMachine.makePurchase(&quot;A&quot;));</span>
+<span class="fc" id="L146">	}</span>
+	
+	/**
+	 * Test method for {@link edu.towson.cis.cosc442.project2.vendingmachine.VendingMachine#makePurchase(java.lang.String)}.
+	 * Making sure you cannot purchase from an invalid slot
+	 */
+	@Test (expected = VendingMachineException.class)
+	public void testPurchaseInvalidSlot() {
+<span class="nc" id="L154">		myVendingMachine.makePurchase(&quot;E&quot;);</span>
+<span class="nc" id="L155">	}</span>
+	
+	/**
+	 * Test method for {@link edu.towson.cis.cosc442.project2.vendingmachine.VendingMachine#returnChange()}.
+	 * Making sure machine returns correct change
+	 */
+	@Test
+	public void testReturnChange() {
+<span class="fc" id="L163">		myVendingMachine.addItem(candy, &quot;B&quot;);</span>
+<span class="fc" id="L164">		myVendingMachine.insertMoney(5);</span>
+<span class="fc" id="L165">		myVendingMachine.makePurchase(&quot;B&quot;);</span>
+		
+<span class="fc" id="L167">		assertEquals(2.01, myVendingMachine.returnChange(), 0.001);</span>
+<span class="fc" id="L168">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span>AllTests (1) (Mar 13, 2025 2:50:57 PM)</div></body></html>
